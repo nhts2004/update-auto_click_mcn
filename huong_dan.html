@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hướng dẫn sử dụng RioMCN Auto Renew</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS tùy chỉnh để giao diện "sang" hơn */
+        :root {
+            --primary-color: #0056b3; /* Xanh đậm sang trọng */
+            --text-color: #212529; /* Màu chữ tối, dễ đọc */
+            --bg-light: #f8f9fa; /* Màu nền xám rất nhạt */
+            --border-color: #e9ecef; /* Màu viền tinh tế */
+            --card-shadow: 0 8px 25px rgba(0,0,0,0.08); /* Đổ bóng mềm mại */
+            --card-hover-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.75; /* Tăng khoảng cách dòng để dễ đọc hơn */
+        }
+
+        .main-content {
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hiệu ứng nhấc lên khi di chuột qua */
+        .main-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+        h1, h2, h3 {
+            font-weight: 600; /* Giảm độ đậm một chút cho tinh tế hơn */
+            letter-spacing: -0.5px;
+        }
+
+        h1 {
+            color: #1a202c;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        h2 {
+            color: #2d3748;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.75rem;
+            margin-top: 2.5rem; /* Tăng khoảng cách giữa các phần */
+        }
+
+        h3 {
+            color: #4a5568;
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #007bff;
+            text-decoration: underline;
+        }
+
+        ul, ol {
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+        }
+
+        strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="container mx-auto max-w-4xl p-4 sm:p-6 md:p-8">
+        <div class="main-content bg-white rounded-lg shadow-lg p-6 sm:p-8 md:p-10">
+            <h1 class="text-3xl md:text-4xl mb-6 text-center text-gray-900 border-b pb-4">Hướng dẫn sử dụng RioMCN Auto Renew</h1>
+
+            <section class="mb-8">
+                <h2 class="text-2xl mb-4 text-gray-800">1. Giới thiệu</h2>
+                <p class="mb-4">
+                    RioMCN Auto Renew là tiện ích mở rộng giúp tự động gia hạn giờ live trên hệ thống <a href="https://mcn.riomedia.vn" target="_blank" rel="noopener noreferrer">mcn.riomedia.vn</a> bằng cách giám sát các tab đang mở trang giỏ live và nhấn nút gia hạn thay cho bạn khi đến thời điểm phù hợp. 
+                </p>
+                <p>
+                    Tiện ích hoạt động hoàn toàn trên trình duyệt Coccoc/Edge ở chế độ nền (background service worker) và hỗ trợ gửi thông báo trên trình duyệt cũng như email khi gia hạn thành công hoặc thất bại. 
+                </p>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl mb-4 text-gray-800">2. Điều kiện trước khi cài đặt</h2>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Máy tính sử dụng trình duyệt Chromium (Cốc cốc, Microsoft Edge, Brave...).</li>
+                    <li>Có quyền truy cập trang <a href="https://mcn.riomedia.vn/giolive/" target="_blank" rel="noopener noreferrer">https://mcn.riomedia.vn/giolive/</a> và sẵn sàng đăng nhập tài khoản MCN.</li>
+                    <li>Đã tải file "auto-click-mcn.crx" extension.</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl mb-4 text-gray-800">3. Cài đặt tiện ích ở chế độ Developer</h2>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Mở trình duyệt Cốc Cốc/Edge → nhập <code>coccoc://extensions/</code> (hoặc <code>edge://extensions/</code>).</li>
+                    <li>Bật <strong>Developer mode</strong> (Chế độ dành cho nhà phát triển) ở góc phải.</li>
+                    <li>Kéo file đã tải vào trình duyệt</li>
+                    <li>Sau khi thêm thành công, biểu tượng RioMCN Auto Renew sẽ xuất hiện trên thanh tiện ích.</li>
+                    <li>Click <strong>⋮</strong> trong cảnh báo. chọn: <Strong>Giữ lại Tiện ích này</Strong></li>
+                </ol>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl mb-4 text-gray-800">4. Chuẩn bị tab làm việc</h2>
+                 <ul class="list-disc list-inside space-y-2">
+                    <li>Mở trang giỏ live cần giám sát ở địa chỉ <code>https://mcn.riomedia.vn/giolive/...</code> và giữ tab này mở trong suốt quá trình tự động gia hạn. </li>
+                    <li>Mỗi lần bạn truy cập/refresh trang, content script sẽ đọc lại thông tin thời gian và link gia hạn để phục vụ cho lần xử lý tiếp theo. </li>
+                </ul>
+            </section>
+            
+            <section class="mb-8">
+                <h2 class="text-2xl mb-4 text-gray-800">5. Cấu hình lần đầu</h2>
+                <p class="mb-4">Nhấp vào biểu tượng tiện ích để mở popup và thực hiện các bước sau:</p>
+                <div class="space-y-6 ml-4">
+                    <h3 class="text-xl font-semibold text-gray-700">5.1 Nhập email bắt buộc</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Trường <strong>Email nhận thông báo</strong> là bắt buộc; tiện ích sẽ không cho phép bật tự động nếu email không hợp lệ. </li>
+                        <li>Email dùng để gửi báo cáo khi gia hạn thành công/thất bại và các lỗi phát sinh. </li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-700">5.2 Chọn chế độ lập lịch</h3>
+                    <ul class="list-disc list-inside">
+                        <li><strong>Trước (Trước giờ hết hạn)</strong>: tiện ích sẽ bấm gia hạn trước khi hết hạn <code>wait_minutes</code> phút. Đây là chế độ mặc định. </li>
+                        <li><strong>Sau (Sau khi hết hạn)</strong>: tiện ích chờ đến khi giờ live hết hạn rồi thử gia hạn trong khoảng <code>wait_minutes</code> phút sau đó.</li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-700">5.3 Thiết lập thời gian chờ</h3>
+                     <ul class="list-disc list-inside">
+                        <li><strong>Thời gian chờ (phút)</strong>: khoảng lệch so với thời điểm hết hạn. Nhập <code>0</code> nếu muốn gia hạn ngay sát thời điểm hệ thống báo hết hạn. </li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-700">5.4 Cấu hình kiểm tra lại khi lỗi</h3>
+                     <ul class="list-disc list-inside">
+                        <li><strong>Thời gian chờ kiểm tra lại sau lỗi (phút)</strong> và <strong>Số lần kiểm tra lại</strong> cho phép hệ thống tự động thử lại nếu thao tác gia hạn gặp lỗi. Số lần = 0 nghĩa là thử lại không giới hạn, mỗi lần cách nhau <code>retry_interval_minutes</code> phút. </li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-700">5.5 Tùy chọn email thông báo</h3>
+                     <ul class="list-disc list-inside">
+                        <li>Bật/tắt gửi email thành công hoặc thất bại bằng checkbox <strong>Ở lần bật đầu tiên, hệ thống sẽ mặc định mở cả 2, có thể click để tắt 1 trong 2</strong>. Nếu tắt 1 trong 2 hoặc cả 2, tiện ích chỉ hiển thị thông báo trên trình duyệt khi thành công/thất bại. </li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-700">5.6 Bật/tắt tự động</h3>
+                     <ul class="list-disc list-inside">
+                        <li>Nhấn <strong>Kích hoạt</strong> để bắt đầu giám sát. Trạng thái sẽ chuyển sang “Đang hoạt động” và nút <strong>Kiểm tra ngay</strong> xuất hiện để bạn chủ động chạy lại một lần kiểm tra. </li>
+                        <li>Nhấn <strong>Tắt</strong> khi muốn dừng tự động và hủy các lịch đã đặt. </li>
+                    </ul>
+                    
+                    <h3 class="text-xl font-semibold text-gray-700">5.7 Đồng bộ và lịch chạy nền</h3>
+                    <p>Khi bật tự động, tiện ích sẽ:</p>
+                    <ol class="list-decimal list-inside">
+                        <li>Tìm tab phù hợp đang mở trang giỏ live và lấy thời điểm hết hạn từ DOM.</li>
+                        <li>Đặt lịch (Chrome alarm) để quay lại tab đó và bấm nút gia hạn vào thời điểm tương ứng với chế độ bạn chọn. </li>
+                        <li>Gửi thông báo kết quả và sắp lịch lại cho lần tiếp theo sau mỗi lần xử lý.</li>
+                    </ol>
+                </div>
+            </section>
+            
+            <section class="mb-8">
+                <h2 class="text-2xl mb-4 text-gray-800">6. Theo dõi và xử lý sự cố</h2>
+                <div class="space-y-6 ml-4">
+                    <h3 class="text-xl font-semibold text-gray-700">6.1 Tab “Nhật ký”</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Chuyển sang tab <strong>Nhật ký</strong> trong popup để xem tối đa 400 bản ghi gần nhất gồm thời gian, mức độ (INFO/WARN/ERROR) và chi tiết kèm theo. </li>
+                        <li>Dùng nút <strong>Làm mới</strong> để tải lại log, <strong>Làm sạch</strong> để xóa log đang hiển thị. </li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-700">6.2 Nút “Kiểm tra ngay”</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Khi trạng thái đang hoạt động, bạn có thể nhấn <strong>Kiểm tra ngay</strong> để yêu cầu tiện ích lập tức kiểm tra thời gian hết hạn và gia hạn nếu đủ điều kiện. </li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-700">6.3 Nút “reset”</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Nút <strong>reset</strong> đặt lại toàn bộ cấu hình tạm thời: đưa thời gian chờ về 0, chọn lại chế độ “Trước”, bỏ chọn email, xóa bộ đếm thành công và log, đồng thời dừng tự động hóa. </li>
+                    </ul>
+
+                    <h3 class="text-xl font-semibold text-gray-700">6.4 Thông báo lỗi và email</h3>
+                    <ul class="list-disc list-inside">
+                        <li>Mỗi khi thao tác gia hạn thất bại (không tìm thấy tab, trang chưa sẵn sàng, không bấm được nút...), tiện ích sẽ hiển thị thông báo cảnh báo trong trình duyệt và (nếu bật) gửi email mô tả chi tiết lỗi, số lần thử lại... </li>
+                        <li>Bạn có thể dựa vào nội dung log và email để xử lý (ví dụ: đảm bảo tab vẫn mở, đăng nhập chưa hết hạn, nút gia hạn vẫn hiển thị).</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section>
+                <h2 class="text-2xl mb-4 text-gray-800">8. Mẹo vận hành</h2>
+                <ul class="list-disc list-inside space-y-2">
+                    <li>Giữ ít nhất một tab giỏ live mở liên tục; nếu tab bị đóng, tiện ích sẽ ghi nhận lỗi “Không tìm thấy tab đủ điều kiện”. </li>
+                    <li>Tránh reload trang ngay trong thời điểm tiện ích đang thao tác để hạn chế mất dữ liệu đọc từ DOM.</li>
+                    <li>Theo dõi bộ đếm <strong>Số lần tự động thành công</strong> để đánh giá hiệu quả vận hành và sử dụng nút reset khi muốn bắt đầu lại từ đầu.</li>
+                </ul>
+            </section>
+            
+            <div class="mt-10 pt-6 border-t border-[var(--border-color)] text-center text-gray-500">
+                <p>Chúc bạn vận hành hệ thống gia hạn giờ live hiệu quả với RioMCN Auto Renew!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
