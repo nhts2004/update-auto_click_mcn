@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gupdate xmlns="http://www.google.com/update2/response" protocol="2.0">
   <app appid="jckmpniiklplfplhhhjabekllcikacgm">
-    <updatecheck codebase="https://github.com/nhts2004/update-auto_click_mcn/blob/main/auto-click-mcn.crx" version="1.0.4" />
+    <updatecheck codebase="https://github.com/nhts2004/update-auto_click_mcn/raw/refs/heads/main/auto-click-mcn.crx" version="1.0.4" />
   </app>
 </gupdate>
